@@ -1827,7 +1827,7 @@ jest-config@^22.4.2:
     jest-validate "^22.4.2"
     pretty-format "^22.4.0"
 
-jest-diff@^22.4.0:
+jest-diff@^22.0.6, jest-diff@^22.4.0:
   version "22.4.0"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-22.4.0.tgz#384c2b78519ca44ca126382df53f134289232525"
   dependencies:
@@ -1979,7 +1979,7 @@ jest-serializer@^22.4.0:
   version "22.4.0"
   resolved "https://registry.yarnpkg.com/jest-serializer/-/jest-serializer-22.4.0.tgz#b5d145b98c4b0d2c20ab686609adbb81fe23b566"
 
-jest-snapshot@^22.4.0:
+jest-snapshot@^22.0.6, jest-snapshot@^22.4.0:
   version "22.4.0"
   resolved "https://registry.yarnpkg.com/jest-snapshot/-/jest-snapshot-22.4.0.tgz#03d3ce63f8fa7352388afc6a3c8b5ccc3a180ed7"
   dependencies:
@@ -2578,7 +2578,7 @@ prettier@^1.11.1:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.11.1.tgz#61e43fc4cd44e68f2b0dfc2c38cd4bb0fccdcc75"
 
-pretty-format@^22.4.0:
+pretty-format@^22.0.6, pretty-format@^22.4.0:
   version "22.4.0"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-22.4.0.tgz#237b1f7e1c50ed03bc65c03ccc29d7c8bb7beb94"
   dependencies:
@@ -2891,6 +2891,15 @@ slash@^1.0.0:
 slide@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
+
+snapshot-diff@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/snapshot-diff/-/snapshot-diff-0.3.0.tgz#49ca20090f0129a827d409b73f9cf78aba50157e"
+  dependencies:
+    jest-diff "^22.0.6"
+    jest-snapshot "^22.0.6"
+    pretty-format "^22.0.6"
+    strip-ansi "^4.0.0"
 
 sntp@1.x.x:
   version "1.0.9"

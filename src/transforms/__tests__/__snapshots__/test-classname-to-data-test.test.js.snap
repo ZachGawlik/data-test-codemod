@@ -18,3 +18,8 @@ const ButtonGroup = ({ editItem }) => (
 export default ButtonGroup;
 
 `;
+
+exports[`test-classname-to-data-test takes class-name-prefix config option 1`] = `
+Snapshot Diff:
+Compared values have no visual difference.
+`;

@@ -10,9 +10,10 @@ const without = (array, index) => [
   ...array.slice(index + 1)
 ];
 
-module.exports = function transformer(file, api) {
+module.exports = function transformer(file, api, options) {
   const j = api.jscodeshift;
   const root = j(file.source);
+  const classNamePrefix = options['class-name-prefix'] || 'test-';
   let hasModifications = false;
 
   root.find(j.JSXOpeningElement).forEach(openingElement => {
@@ -26,7 +27,9 @@ module.exports = function transformer(file, api) {
 
     if (classNameAttr) {
       const classNames = classNameAttr.value.value.split(' ');
-      const testClassIndex = classNames.findIndex(c => c.startsWith('test-'));
+      const testClassIndex = classNames.findIndex(c =>
+        c.startsWith(classNamePrefix)
+      );
       if (testClassIndex > -1) {
         const testClassName = classNames[testClassIndex];
         const newClassNames = without(classNames, testClassIndex).join(' ');
@@ -43,7 +46,7 @@ module.exports = function transformer(file, api) {
         openingElement.node.attributes.push(
           j.jsxAttribute(
             j.jsxIdentifier('data-test'),
-            j.stringLiteral(testClassName.slice('test-'.length))
+            j.stringLiteral(testClassName.slice(classNamePrefix.length))
           )
         );
         hasModifications = true;
