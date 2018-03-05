@@ -1,0 +1,21 @@
+{
+  "name": "data-test-codemod",
+  "version": "0.1.0",
+  "description": "Codemod to transform test-* classNames to data-test attributes",
+  "repository": "git@github.com:ZachGawlik/data-test-codemod.git",
+  "author": "Zach Gawlik",
+  "license": "MIT",
+  "keywords": [
+    "codemod",
+    "jscodeshift"
+  ],
+  "private": false,
+  "devDependencies": {
+    "jest": "^22.4.2",
+    "jscodeshift": "^0.4.1",
+    "prettier": "^1.11.1"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
