@@ -43,7 +43,7 @@ module.exports = function transformer(file, api) {
         openingElement.node.attributes.push(
           j.jsxAttribute(
             j.jsxIdentifier('data-test'),
-            j.stringLiteral(testClassName)
+            j.stringLiteral(testClassName.slice('test-'.length))
           )
         );
         hasModifications = true;
