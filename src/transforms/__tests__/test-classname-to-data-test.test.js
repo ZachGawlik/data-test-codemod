@@ -28,4 +28,19 @@ describe('test-classname-to-data-test', () => {
       )
     ).toMatchSnapshot();
   });
+
+  it('takes dataKey config option', () => {
+    expect(
+      snapshotDiff(
+        transformFixture(__dirname, {}, 'test-classname-to-data-test.js'),
+        transformFixture(
+          __dirname,
+          {
+            'data-key': 'data-cypress'
+          },
+          'test-classname-to-data-test.js'
+        )
+      )
+    ).toMatchSnapshot();
+  });
 });

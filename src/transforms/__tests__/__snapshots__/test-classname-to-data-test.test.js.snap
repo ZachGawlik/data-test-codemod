@@ -23,3 +23,24 @@ exports[`test-classname-to-data-test takes class-name-prefix config option 1`] =
 Snapshot Diff:
 Compared values have no visual difference.
 `;
+
+exports[`test-classname-to-data-test takes dataKey config option 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -1,11 +1,11 @@
+  import React from 'react';
+  
+  const ButtonGroup = ({ editItem }) => (
+    <div>
+-     <button data-test="add-btn">Add</button>
+-     <button className="btn btn-secondary" onClick={editItem} data-test="edit-btn">
++     <button data-cypress="add-btn">Add</button>
++     <button className="btn btn-secondary" onClick={editItem} data-cypress="edit-btn">
+        Edit
+      </button>
+      <button className="btn btn-danger" data-test="delete-btn">
+        Delete
+      </button>
+`;

@@ -14,6 +14,7 @@ module.exports = function transformer(file, api, options) {
   const j = api.jscodeshift;
   const root = j(file.source);
   const classNamePrefix = options['class-name-prefix'] || 'test-';
+  const dataKey = options['data-key'] || 'data-test';
   let hasModifications = false;
 
   root.find(j.JSXOpeningElement).forEach(openingElement => {
@@ -45,7 +46,7 @@ module.exports = function transformer(file, api, options) {
 
         openingElement.node.attributes.push(
           j.jsxAttribute(
-            j.jsxIdentifier('data-test'),
+            j.jsxIdentifier(dataKey),
             j.stringLiteral(testClassName.slice(classNamePrefix.length))
           )
         );
