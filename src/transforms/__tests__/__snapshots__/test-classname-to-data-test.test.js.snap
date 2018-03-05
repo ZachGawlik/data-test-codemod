@@ -1,3 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test-classname-to-data-test defaults to transform test-* classnames to data-test attrbutes 1`] = `
 import React from 'react';
 
 const ButtonGroup = ({ editItem }) => (
@@ -13,3 +16,5 @@ const ButtonGroup = ({ editItem }) => (
 );
 
 export default ButtonGroup;
+
+`;
