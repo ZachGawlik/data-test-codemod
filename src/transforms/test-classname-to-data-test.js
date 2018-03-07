@@ -26,7 +26,7 @@ module.exports = function transformer(file, api, options) {
     );
     const classNameAttr = attributes[classNameAttrIndex];
 
-    if (classNameAttr) {
+    if (classNameAttr && classNameAttr.value.type === j.Literal.name) {
       const classNames = classNameAttr.value.value.split(' ');
       const testClassIndex = classNames.findIndex(c =>
         c.startsWith(classNamePrefix)

@@ -43,4 +43,16 @@ describe('test-classname-to-data-test', () => {
       )
     ).toMatchSnapshot();
   });
+
+  it('does not transform classes wrapped in classNames/cx (yet)', () => {
+    expect(transformFixture(__dirname, {}, 'test-classnames-library.js')).toBe(
+      null
+    );
+  });
+
+  it('does not transform classes wrapped in template literal (yet)', () => {
+    expect(transformFixture(__dirname, {}, 'test-template-literals.js')).toBe(
+      null
+    );
+  });
 });
