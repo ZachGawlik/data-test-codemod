@@ -19,6 +19,28 @@ export default ButtonGroup;
 
 `;
 
+exports[`test-classname-to-data-test does not transform classes wrapped in template literal (yet) 1`] = `
+import React from 'react';
+
+const Form = () => (
+  <div>
+    <div className="untested-components">
+      <input className={\`text-input disabled\`} />
+      <input className={\`text-input \${active ? 'active' : 'inactive'}\`} />
+    </div>
+    <div className="tested-components">
+      <input data-test="template-input" />
+      <button className={\`btn \${disabled && 'disabled'}\`} data-test="template-btn">
+        Test classNames parsing
+      </button>
+    </div>
+  </div>
+);
+
+export default ButtonGroup;
+
+`;
+
 exports[`test-classname-to-data-test takes class-name-prefix config option 1`] = `
 Snapshot Diff:
 Compared values have no visual difference.

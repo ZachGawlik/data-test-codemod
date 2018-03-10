@@ -101,6 +101,41 @@ module.exports = function transformer(file, api, options) {
             );
             hasModifications = true;
           }
+        } else if (
+          classNameAttr.value.expression &&
+          classNameAttr.value.expression.type === 'TemplateLiteral'
+        ) {
+          const stringListInTemplate = classNameAttr.value.expression.quasis;
+          const testClassIndex = stringListInTemplate.findIndex(
+            templateElement =>
+              templateElement.value.cooked.trim().startsWith(classNamePrefix)
+          );
+
+          if (testClassIndex > -1) {
+            const testClassName = stringListInTemplate[
+              testClassIndex
+            ].value.cooked.trim();
+
+            if (stringListInTemplate.length === 1) {
+              openingElement.node.attributes = without(
+                attributes,
+                classNameAttrIndex
+              );
+            } else {
+              stringListInTemplate[testClassIndex].value = {
+                cooked: '',
+                raw: ''
+              };
+            }
+
+            openingElement.node.attributes.push(
+              j.jsxAttribute(
+                j.jsxIdentifier(dataKey),
+                j.stringLiteral(testClassName.slice(classNamePrefix.length))
+              )
+            );
+            hasModifications = true;
+          }
         }
       }
     }

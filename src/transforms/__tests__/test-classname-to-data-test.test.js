@@ -51,8 +51,8 @@ describe('test-classname-to-data-test', () => {
   });
 
   it('does not transform classes wrapped in template literal (yet)', () => {
-    expect(transformFixture(__dirname, {}, 'test-template-literals.js')).toBe(
-      null
-    );
+    expect(
+      transformFixture(__dirname, {}, 'test-template-literals.js')
+    ).toMatchSnapshot();
   });
 });
