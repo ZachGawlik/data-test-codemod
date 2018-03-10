@@ -1,7 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
-
-const cx = classNames.bind({ active: 'btn-active' });
 
 const Form = () => (
   <div>
@@ -11,7 +8,7 @@ const Form = () => (
     </div>
     <div className="tested-components">
       <input className={`test-template-input`} />
-      <button className={`test-template-btn btn ${disabled && 'disabled'}`}>
+      <button className={`btn ${disabled && 'disabled'} test-template-btn`}>
         Test classNames parsing
       </button>
     </div>
