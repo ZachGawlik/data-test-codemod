@@ -22,6 +22,10 @@ const isExpressionCallingFunc = (path, funcName) => {
   return false;
 };
 
+function reportError(node, error) {
+  throw new Error(`(${node.loc.start.line}:${node.loc.start.column}) ${error}`);
+}
+
 module.exports = function transformer(file, api, options) {
   const j = api.jscodeshift;
   const root = j(file.source);
@@ -45,6 +49,12 @@ module.exports = function transformer(file, api, options) {
           c.startsWith(classNamePrefix)
         );
         if (testClassIndex > -1) {
+          if (getAttributeWithNameIndex(attributes, dataKey) > -1) {
+            reportError(
+              openingElement.node,
+              `Element already has ${dataKey} attribute`
+            );
+          }
           const testClassName = classNames[testClassIndex];
           const newClassNames = without(classNames, testClassIndex).join(' ');
 
@@ -78,6 +88,13 @@ module.exports = function transformer(file, api, options) {
           );
 
           if (testClassArgumentIndex > -1) {
+            if (getAttributeWithNameIndex(attributes, dataKey) > -1) {
+              reportError(
+                openingElement.node,
+                `Element already has ${dataKey} attribute`
+              );
+            }
+
             const testClassName =
               classNamesArguments[testClassArgumentIndex].value;
 
@@ -112,6 +129,13 @@ module.exports = function transformer(file, api, options) {
           );
 
           if (testClassIndex > -1) {
+            if (getAttributeWithNameIndex(attributes, dataKey) > -1) {
+              reportError(
+                openingElement.node,
+                `Element already has ${dataKey} attribute`
+              );
+            }
+
             const testClassName = stringListInTemplate[
               testClassIndex
             ].value.cooked.trim();

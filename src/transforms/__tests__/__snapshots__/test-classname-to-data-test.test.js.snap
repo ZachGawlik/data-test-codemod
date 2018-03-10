@@ -67,6 +67,8 @@ Snapshot Diff:
       </button>
 `;
 
+exports[`test-classname-to-data-test throws error for element with test classname and existing test-data 1`] = `(4:2) Element already has data-test attribute`;
+
 exports[`test-classname-to-data-test transforms classes wrapped in classNames/cx 1`] = `
 import React from 'react';
 import classNames from 'classnames';

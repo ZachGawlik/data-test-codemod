@@ -55,4 +55,10 @@ describe('test-classname-to-data-test', () => {
       transformFixture(__dirname, {}, 'test-template-literals.js')
     ).toMatchSnapshot();
   });
+
+  it('throws error for element with test classname and existing test-data', () => {
+    expect(() =>
+      transformFixture(__dirname, {}, 'test-throw-error.js')
+    ).toThrowErrorMatchingSnapshot();
+  });
 });
