@@ -10,6 +10,18 @@ const without = (array, index) => [
   ...array.slice(index + 1)
 ];
 
+const isExpressionCallingFunc = (path, funcName) => {
+  if (
+    path.value.expression &&
+    path.value.expression.type === 'CallExpression'
+  ) {
+    const functionName =
+      path.value.expression.callee && path.value.expression.callee.name;
+    return functionName && functionName === funcName;
+  }
+  return false;
+};
+
 module.exports = function transformer(file, api, options) {
   const j = api.jscodeshift;
   const root = j(file.source);
@@ -26,34 +38,73 @@ module.exports = function transformer(file, api, options) {
     );
     const classNameAttr = attributes[classNameAttrIndex];
 
-    if (classNameAttr && classNameAttr.value.type === j.Literal.name) {
-      const classNames = classNameAttr.value.value.split(' ');
-      const testClassIndex = classNames.findIndex(c =>
-        c.startsWith(classNamePrefix)
-      );
-      if (testClassIndex > -1) {
-        const testClassName = classNames[testClassIndex];
-        const newClassNames = without(classNames, testClassIndex).join(' ');
-
-        if (newClassNames.trim() === '') {
-          openingElement.node.attributes = without(
-            attributes,
-            classNameAttrIndex
-          );
-        } else {
-          classNameAttr.value = j.stringLiteral(newClassNames);
-        }
-
-        openingElement.node.attributes.push(
-          j.jsxAttribute(
-            j.jsxIdentifier(dataKey),
-            j.stringLiteral(testClassName.slice(classNamePrefix.length))
-          )
+    if (classNameAttr) {
+      if (classNameAttr.value.type === j.Literal.name) {
+        const classNames = classNameAttr.value.value.split(' ');
+        const testClassIndex = classNames.findIndex(c =>
+          c.startsWith(classNamePrefix)
         );
-        hasModifications = true;
+        if (testClassIndex > -1) {
+          const testClassName = classNames[testClassIndex];
+          const newClassNames = without(classNames, testClassIndex).join(' ');
+
+          if (newClassNames.trim() === '') {
+            openingElement.node.attributes = without(
+              attributes,
+              classNameAttrIndex
+            );
+          } else {
+            classNameAttr.value = j.stringLiteral(newClassNames);
+          }
+
+          openingElement.node.attributes.push(
+            j.jsxAttribute(
+              j.jsxIdentifier(dataKey),
+              j.stringLiteral(testClassName.slice(classNamePrefix.length))
+            )
+          );
+          hasModifications = true;
+        }
+      } else if (classNameAttr.value.type === j.JSXExpressionContainer.name) {
+        if (
+          isExpressionCallingFunc(classNameAttr, 'cx') ||
+          isExpressionCallingFunc(classNameAttr, 'classNames')
+        ) {
+          const classNamesArguments = classNameAttr.value.expression.arguments;
+          const testClassArgumentIndex = classNamesArguments.findIndex(
+            arg =>
+              arg.type === j.Literal.name &&
+              arg.value.startsWith(classNamePrefix)
+          );
+
+          if (testClassArgumentIndex > -1) {
+            const testClassName =
+              classNamesArguments[testClassArgumentIndex].value;
+
+            if (classNamesArguments.length === 1) {
+              openingElement.node.attributes = without(
+                attributes,
+                classNameAttrIndex
+              );
+            } else {
+              classNameAttr.value.expression.arguments = without(
+                classNamesArguments,
+                testClassArgumentIndex
+              );
+            }
+
+            openingElement.node.attributes.push(
+              j.jsxAttribute(
+                j.jsxIdentifier(dataKey),
+                j.stringLiteral(testClassName.slice(classNamePrefix.length))
+              )
+            );
+            hasModifications = true;
+          }
+        }
       }
     }
   });
 
-  return hasModifications ? root.toSource() : null;
+  return hasModifications ? root.toSource({ quotes: 'single' }) : null;
 };

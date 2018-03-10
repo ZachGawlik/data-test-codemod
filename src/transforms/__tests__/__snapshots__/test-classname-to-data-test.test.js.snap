@@ -44,3 +44,31 @@ Snapshot Diff:
         Delete
       </button>
 `;
+
+exports[`test-classname-to-data-test transforms classes wrapped in classNames/cx 1`] = `
+import React from 'react';
+import classNames from 'classnames';
+
+const cx = classNames.bind({ active: 'btn-active' });
+
+const Form = () => (
+  <div>
+    <div className="untested-components">
+      <input className={classNames('text-input', { disabled: true })} />
+      <input className={cx('text-input', ['active'], { disabled: true })} />
+    </div>
+    <div className="tested-components">
+      <input data-test="classnames-input" />
+      <button className={classNames({ disabled: true })} data-test="classnames-btn">
+        Test classNames parsing
+      </button>
+      <button className={cx(['active'], { 'btn-hover': false })} data-test="cx-btn">
+        Test cx parsing
+      </button>
+    </div>
+  </div>
+);
+
+export default ButtonGroup;
+
+`;
