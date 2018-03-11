@@ -1,5 +1,5 @@
 {
-  "name": "data-test-codemod",
+  "name": "react-class-to-data-attr",
   "version": "0.1.0",
   "description": "Codemod to transform test-* classNames to data-test attributes",
   "repository": "git@github.com:ZachGawlik/data-test-codemod.git",

@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const jscodeshift = require('jscodeshift');
 
-const TRANSFORM_NAME = 'test-classname-to-data-test.js';
+const TRANSFORM_NAME = 'react-class-to-data-attr.js';
 
 function transformInline(dirName, options, source) {
   const transform = require(path.join(dirName, '..', TRANSFORM_NAME));

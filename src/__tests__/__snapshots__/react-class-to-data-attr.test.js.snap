@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test-classname-to-data-test defaults to transform test-* classnames to data-test attrbutes 1`] = `
+exports[`react-class-to-data-attr defaults to transform test-* classnames to data-test attrbutes 1`] = `
 import React from 'react';
 
 const ButtonGroup = ({ editItem }) => (
@@ -19,7 +19,7 @@ export default ButtonGroup;
 
 `;
 
-exports[`test-classname-to-data-test does not transform classes wrapped in template literal (yet) 1`] = `
+exports[`react-class-to-data-attr does not transform classes wrapped in template literal (yet) 1`] = `
 import React from 'react';
 
 const Form = () => (
@@ -41,12 +41,12 @@ export default ButtonGroup;
 
 `;
 
-exports[`test-classname-to-data-test takes class-name-prefix config option 1`] = `
+exports[`react-class-to-data-attr takes class-name-prefix config option 1`] = `
 Snapshot Diff:
 Compared values have no visual difference.
 `;
 
-exports[`test-classname-to-data-test takes dataKey config option 1`] = `
+exports[`react-class-to-data-attr takes dataKey config option 1`] = `
 Snapshot Diff:
 - First value
 + Second value
@@ -67,9 +67,9 @@ Snapshot Diff:
       </button>
 `;
 
-exports[`test-classname-to-data-test throws error for element with test classname and existing test-data 1`] = `(4:2) Element already has data-test attribute`;
+exports[`react-class-to-data-attr throws error for element with test classname and existing test-data 1`] = `(4:2) Element already has data-test attribute`;
 
-exports[`test-classname-to-data-test transforms classes wrapped in classNames/cx 1`] = `
+exports[`react-class-to-data-attr transforms classes wrapped in classNames/cx 1`] = `
 import React from 'react';
 import classNames from 'classnames';
 

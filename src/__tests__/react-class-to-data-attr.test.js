@@ -1,6 +1,5 @@
-const defineTest = require('jscodeshift/dist/testUtils').defineTest;
 const snapshotDiff = require('snapshot-diff');
-const { transformFixture } = require('../../testUtils');
+const { transformFixture } = require('../utils/test-utils');
 
 // Prevent escaping double-quotes, e.g. className=\\"btn\\"
 const rawSerializer = {
@@ -9,10 +8,10 @@ const rawSerializer = {
 };
 expect.addSnapshotSerializer(rawSerializer);
 
-describe('test-classname-to-data-test', () => {
+describe('react-class-to-data-attr', () => {
   it('defaults to transform test-* classnames to data-test attrbutes', () => {
     expect(
-      transformFixture(__dirname, {}, 'test-classname-to-data-test.js')
+      transformFixture(__dirname, {}, 'standard-classes.js')
     ).toMatchSnapshot();
   });
 
@@ -22,9 +21,9 @@ describe('test-classname-to-data-test', () => {
         transformFixture(
           __dirname,
           { 'class-name-prefix': 'spec-' },
-          'spec-classname-to-data-test.js'
+          'custom-class-prefix.js'
         ),
-        transformFixture(__dirname, {}, 'test-classname-to-data-test.js')
+        transformFixture(__dirname, {}, 'standard-classes.js')
       )
     ).toMatchSnapshot();
   });
@@ -32,13 +31,13 @@ describe('test-classname-to-data-test', () => {
   it('takes dataKey config option', () => {
     expect(
       snapshotDiff(
-        transformFixture(__dirname, {}, 'test-classname-to-data-test.js'),
+        transformFixture(__dirname, {}, 'standard-classes.js'),
         transformFixture(
           __dirname,
           {
             'data-key': 'data-cypress'
           },
-          'test-classname-to-data-test.js'
+          'standard-classes.js'
         )
       )
     ).toMatchSnapshot();
@@ -46,19 +45,19 @@ describe('test-classname-to-data-test', () => {
 
   it('transforms classes wrapped in classNames/cx', () => {
     expect(
-      transformFixture(__dirname, {}, 'test-classnames-library.js')
+      transformFixture(__dirname, {}, 'with-classnames-library.js')
     ).toMatchSnapshot();
   });
 
   it('does not transform classes wrapped in template literal (yet)', () => {
     expect(
-      transformFixture(__dirname, {}, 'test-template-literals.js')
+      transformFixture(__dirname, {}, 'with-template-literals.js')
     ).toMatchSnapshot();
   });
 
   it('throws error for element with test classname and existing test-data', () => {
     expect(() =>
-      transformFixture(__dirname, {}, 'test-throw-error.js')
+      transformFixture(__dirname, {}, 'existing-data-key.js')
     ).toThrowErrorMatchingSnapshot();
   });
 });
